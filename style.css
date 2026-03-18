@@ -43,6 +43,13 @@ header h2{
     flex-wrap:wrap;
     justify-content:center;
     padding:1.5rem;
+    align-items: stretch; /* najważniejsze — rozciąga dzieci do tej samej wysokości */
+}
+.intro .box {
+    flex: 1 1 0; /* pozwala boxom wyrównać wysokość względem najwyższego */
+    display:flex;
+    flex-direction:column;
+    min-height: 0; /* pozwala poprawnie działać overflow wewnątrz */
 }
 .box{
     background: rgba(255,255,255,0.95);
@@ -87,23 +94,61 @@ a.btn:focus{
 .site-footer{
     display:flex;
     gap:1rem;
-    padding:1rem 1.25rem;
+    padding:0.6rem 1.25rem; /* mniejsza przestrzeń pionowa — dopasowana do tekstu */
     background:#4b2e1f; /* brąz kontrastujący z zielonym tłem */
-    align-items:start;
+    align-items:center;     /* wyrównaj pionowo zawartość */
     flex-wrap:wrap;
+    box-sizing:border-box;
+    line-height:1.2;
+    min-height:0;          /* usuń wymuszoną wysokość, jeśli była */
 }
 .footer-section{
     flex:1 1 0;
-    padding:0.5rem 0.75rem;
+    padding:0; /* Usuń dodatkowe paddingi wewnętrzne sekcji stopki */
     color:#fff; /* na ciemnym tle czytelny */
 }
 .footer-left { text-align:left; }
 .footer-center { text-align:center; }
 .footer-right { text-align:right; }
 
+/* Ikony społecznościowe w stopce – dopasowane rozmiary */
+.footer-right { display:flex; align-items:center; justify-content:flex-end; gap:0.5rem; }
+.footer-right a.icon-link {
+    color: #ffffff;
+    text-decoration: none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;
+    height:32px;
+    padding:0; /* ikona centruje się w kwadracie */
+    border-radius:6px;
+}
+.social-icon { width:16px; height:16px; fill: currentColor; display:block; }
+
 /* Linki w treści (kolory) */
 a { color:#1b2a20; }
 a:hover { color:#000; }
+a, a:visited {
+    color: #ffffff;
+    text-decoration: underline;
+}
+/* Jeśli chcesz tylko w stopce i przyciskach: */
+/* footer.site-footer a, .btn { color: #ffffff; text-decoration: underline; } */
+
+/* Kontakt w boxach: stale brązowy jak stopka, bez zmiany przy hover/focus */
+.box a[href^="mailto:"], .extras a[href^="mailto:"] {
+    color: #4b2e1f;
+    text-decoration: underline;
+}
+.box a[href^="mailto:"]:hover, .box a[href^="mailto:"]:focus,
+.extras a[href^="mailto:"]:hover, .extras a[href^="mailto:"]:focus {
+    color: #4b2e1f;
+    text-decoration: underline;
+}
+/* Jeśli reguły ogólne nadal nadpisują kolor, użyj !important:
+.box a[href^="mailto:"], .extras a[href^="mailto:"] { color:#4b2e1f !important; }
+*/
 
 /* Responsywność: kolumny w jeden słupek na małych ekranach */
 @media (max-width:640px){
@@ -112,3 +157,360 @@ a:hover { color:#000; }
     .footer-right, .footer-center, .footer-left{ text-align:left; }
     .btn-row{ flex-direction:row; gap:0.5rem; flex-wrap:wrap; justify-content:flex-start; }
 }
+
+/* Zapobiega wpływaniu boxów na siebie przy rozwijaniu */
+.intro, .extras {
+    align-items: flex-start; /* nie rozciągaj na wysokość całego wiersza */
+}
+.box, details.box {
+    align-self: flex-start;
+    min-height: 200px; /* wystarczająco na rozwinięty content — dostosuj w razie potrzeby */
+    display:flex;
+    flex-direction:column;
+}
+details.box p,
+.box p {
+    overflow:auto; /* scroll wewnątrz boxa zamiast przesuwania układu */
+}
+/* Mniejsze ekrany — mniejsza wysokość boxów */
+@media (max-width:640px){
+    .box, details.box { min-height: 140px; }
+}
+
+/* Rząd 1: wszystkie boxy tej samej wysokości — wysokość wyznacza najwyższy box w rzędzie */
+.intro {
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:1.5rem;
+    align-items: stretch; /* najważniejsze — rozciąga dzieci do tej samej wysokości */
+}
+.intro .box {
+    flex: 1 1 0; /* pozwala boxom wyrównać wysokość względem najwyższego */
+    display:flex;
+    flex-direction:column;
+    min-height: 0; /* pozwala poprawnie działać overflow wewnątrz */
+}
+
+/* Rząd 2 (extras): zwijane details, ale wszystkie boxy dostosowują wysokość do najwyższego (w tym rozwiniętego) */
+.extras {
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:1.5rem 1.5rem 0.5rem;
+    align-items: stretch;
+}
+.extras .box,
+.extras details.box {
+    flex: 1 1 0;
+    display:flex;
+    flex-direction:column;
+    min-height: 0;
+}
+
+/* Wnętrze boxów: zawartość przewija się wewnątrz gdy potrzeba */
+.box p,
+details.box > p,
+details.box > .content {
+    overflow:auto;
+}
+
+/* Zachowaj responsywność — na małych ekranach ustaw kolumny */
+@media (max-width:640px){
+    .intro, .extras { flex-direction:column; align-items:stretch; padding:1rem; }
+    .box, details.box { flex: 0 1 auto; } /* na mobilkach nie wymuszamy równej wysokości */
+}
+
+/* Usuń wymuszony min-height — JS ustawi jednakową wysokość */
+.box, details.box {
+    min-height: 0; /* override wcześniejsze wartości */
+    display:flex;
+    flex-direction:column;
+}
+
+/* Zapewnij że treść może się przewijać wewnątrz */
+.box > p, details.box > p {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+/* Jedna szerokość i konkretna wysokość dla wszystkich boxów (desktop) */
+.intro .box,
+.extras .box,
+details.box {
+    flex: 0 0 350px;   /* stała szerokość */
+    width: 350px;
+    height: 260px;     /* konkretna wysokość */
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    box-sizing:border-box;
+}
+
+/* Treść przewija się wewnątrz jeśli za długa */
+.box > p,
+details.box > p,
+details.box .content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+/* Mniejsze ekrany: przejście na responsywną siatkę i mniejsze wysokości */
+@media (max-width:1000px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        flex: 0 0 calc(50% - 0.75rem);
+        width: calc(50% - 0.75rem);
+        height: 220px;
+    }
+}
+@media (max-width:640px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        flex: 1 1 auto;
+        width: auto;
+        height: auto; /* na mobilkach nie trzymamy stałej wysokości */
+    }
+}
+
+/* Ekstra: tylko tytuły widoczne gdy zamknięte; po otwarciu rozciągają się do wymiarów pierwszego rzędu */
+.extras {
+    gap: 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+}
+.extras details.box {
+    box-sizing: border-box;
+    width: 350px;           /* ta sama szerokość co boxy w pierwszym rzędzie */
+    height: 64px;           /* wysokość w stanie zwiniętym (tylko summary) */
+    overflow: hidden;
+    transition: height .22s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: rgba(255,255,255,0.95);
+    border-radius: 10px;
+    padding: 0;             /* padding da summary / content wewnątrz */
+}
+
+/* summary jako jedyny widoczny element w stanie zamkniętym */
+.extras details.box > summary {
+    list-style: none;
+    cursor: pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:64px;
+    padding: 1rem;
+    margin:0;
+}
+.extras details.box > summary::-webkit-details-marker,
+.extras details.box > summary::marker { display: none; }
+.extras details.box > summary h3 { margin:0; }
+
+/* ukryj pozostałe dzieci gdy details zamknięty */
+.extras details.box > *:not(summary){ display:none; }
+
+/* stan otwarty — dopasuj do wymiarów pierwszego rzędu */
+.extras details.box[open]{
+    height: 260px;         /* ta sama wysokość co boxy first-row */
+}
+/* pokaż zawartość gdy otwarte */
+.extras details.box[open] > *:not(summary){ 
+    display:block;
+    padding: 1rem 1.25rem;
+}
+
+/* treść rozwinięcia przewija się wewnątrz */
+.extras details.box p,
+.extras details.box .content {
+    flex: 1 1 auto;
+    overflow: auto;
+    margin: 0;
+}
+
+/* responsywność — na mniejszych ekranach nie wymuszamy stałej wysokości */
+@media (max-width:1000px){
+    .extras details.box {
+        width: calc(50% - 0.75rem);
+        height: 70px;
+    }
+    .extras details.box[open]{ height: 220px; }
+}
+@media (max-width:640px){
+    .extras details.box{
+        width: auto;
+        height: auto;
+    }
+    .extras details.box > *:not(summary){ display:block; padding:0.75rem 1rem; }
+    .extras details.box > summary{ height:auto; padding:0.75rem 1rem; }
+}
+
+/* Wszystkie boxy — jedna szerokość i wysokość, otwieranie nie zmienia układu */
+.intro .box,
+.extras .box,
+details.box {
+    box-sizing: border-box;
+    flex: 0 0 340px;
+    width: 340px;
+    height: 300px;      /* stała wysokość dla wszystkich boxów */
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    overflow: hidden;   /* zawartość przewija się wewnątrz, nie zmienia układu strony */
+}
+
+/* summary (tytuł) zawsze widoczny i wyrównany */
+.extras details.box > summary {
+    list-style:none;
+    margin:0;
+    padding:0.9rem 1.25rem;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+.extras details.box > summary::-webkit-details-marker,
+.extras details.box > summary::marker { display: none; }
+
+/* ukryj pozostałe elementy gdy details zamknięty — nie zmienia wysokości elementu (height stały) */
+.extras details.box > *:not(summary){ display:none; }
+
+/* gdy otwarte — pokaż zawartość, ale mieści się w zadeklarowanej wysokości i przewija wewnątrz */
+.extras details.box[open] > *:not(summary){
+    display:block;
+    padding: 0.9rem 1.25rem;
+    max-height: calc(260px - 64px); /* mieści się w stałej wysokości boxa */
+    overflow: auto;                 /* przewijanie wewnątrz, nie zmienia układu */
+    margin: 0;
+}
+
+/* upewnij się, że treść w zwykłych boxach też przewija się wewnątrz */
+.box > p,
+.details-content,
+.extras details.box > *:not(summary){
+    margin:0;
+    flex: 1 1 auto;
+}
+
+/* Responsywność: mniejsze szerokości i wysokości na tablet/telefon */
+@media (max-width:1000px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        flex: 0 0 calc(50% - 0.75rem);
+        width: calc(50% - 0.75rem);
+        height: 220px;
+    }
+    .extras details.box > summary { height: 60px; }
+    .extras details.box[open] > *:not(summary){ max-height: calc(220px - 60px); }
+}
+@media (max-width:640px){
+    /* na mobilkach nie wymuszamy stałej wysokości */
+    .intro .box,
+    .extras .box,
+    details.box {
+        flex: 1 1 auto;
+        width: auto;
+        height: auto;
+    }
+    .extras details.box > *:not(summary){ display:block; padding:0.75rem 1rem; max-height:none; overflow:visible; }
+    .extras details.box > summary{ height:auto; }
+}
+/* Zapobiega przesuwaniu stopki — jeśli stopka nadal przemieszcza się, upewnij się, że nie ma skryptów zmieniających wysokość .extras */
+.site-footer{ position:relative; z-index:1; }
+
+/* GLOBAL GRID: oba rzędy uczestniczą w tej samej siatce 4 kolumn */
+main {
+    display: grid;
+    grid-template-columns: repeat(4, 360px);
+    justify-content: center;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Pozwól, by elementy .box wewnątrz sekcji stały się bezpośrednimi elementami siatki */
+.intro, .extras { display: contents; }
+
+/* Jednolite wymiary wszystkich boxów */
+.intro .box,
+.extras .box,
+details.box {
+    box-sizing: border-box;
+    width: 360px;
+    max-width: 360px;
+    flex: none; /* usuwa wpływ flex na szerokość */
+}
+
+/* Dla pewności: szczegółowe elementy details też mają tę samą szerokość */
+.extras details.box {
+    width: 360px;
+    max-width: 360px;
+}
+
+/* Responsywność — zachowaj poprzednie media queries (tylko nadpisaliśmy szerokość) */
+@media (max-width:1000px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        width: calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+        flex: none;
+    }
+}
+@media (max-width:640px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        width: auto;
+        max-width: none;
+        flex: 1 1 auto;
+    }
+}
+/* Wymuszona stała szerokość jak w pierwszym rzędzie — bez używania flex-basis */
+.intro .box,
+.extras .box,
+details.box {
+    box-sizing: border-box;
+    width: 360px;
+    max-width: 360px;
+    flex: none; /* usuwa wpływ flex na szerokość */
+}
+
+/* Dla pewności: szczegółowe elementy details też mają tę samą szerokość */
+.extras details.box {
+    width: 360px;
+    max-width: 360px;
+}
+
+/* Responsywność — zachowaj poprzednie media queries (tylko nadpisaliśmy szerokość) */
+@media (max-width:1000px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        width: calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+        flex: none;
+    }
+}
+@media (max-width:640px){
+    .intro .box,
+    .extras .box,
+    details.box {
+        width: auto;
+        max-width: none;
+        flex: 1 1 auto;
+    }
+}
+/* Zapobiega przesuwaniu stopki — jeśli stopka nadal przemieszcza się, upewnij się, że nie ma skryptów zmieniających wysokość .extras */
+.site-footer{ position:relative; z-index:1; }
