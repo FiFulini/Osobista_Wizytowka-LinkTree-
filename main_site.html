@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filip — Strona główna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main_site.css">
+    <meta name="theme-color" content="#6b4423">
+</head>
+<body>
+
+    <header class="site-nav" role="navigation" aria-label="Główne menu">
+        <nav class="nav-inner">
+            <div class="nav-brand">FILIP</div>
+            <button class="nav-toggle" aria-expanded="false" aria-label="Pokaż menu">☰</button>
+            <ul class="nav-list">
+                <li><a href="about.html">O mnie</a></li>
+                <li><a href="#projects">Moje projekty</a></li>
+                <li><a href="#courses">Kursy i certyfikaty</a></li>
+                <li><a href="#experience">Doświadczenie</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="hero" id="home">
+        <div class="hero-bg" role="img" aria-label="Tło ze zdjęciem Filipa" style="background-image: url('ada.png'); background-size: cover; background-position: center; min-height: 100vh; height: 100vh;">
+            <div class="hero-overlay">
+                <div class="hero-left">
+                    <h1 class="big-name">FILIP</h1>
+                    <p class="subtitle">Data Engineer | Graduate (Eng.)</p>
+                    <a class="primary-btn" href="visit.html">Zobacz moją wizytówkę</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Prosty toggle menu dla małych ekranów
+        const toggle = document.querySelector('.nav-toggle');
+        const list = document.querySelector('.nav-list');
+        if(toggle && list){
+            toggle.addEventListener('click', () => {
+                const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!expanded));
+                list.classList.toggle('open');
+            });
+        }
+    </script>
+
+</body>
+</html>
