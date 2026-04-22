@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projekty — Filip Niemczyk</title>
+  <link rel="stylesheet" href="visit.css">
+  <style>
+    /* ── Projects grid ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
+      gap: 1.25rem;
+      justify-content: center;
+      padding: 0 1.5rem 2.5rem;
+    }
+
+    /* ── Project card ── */
+    .project-card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* ── Card top row: title + tags ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin: 0;
+    }
+
+    /* ── Tag chips ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(38,78,54,0.12);
+      color: #264e36;
+      white-space: nowrap;
+    }
+
+    /* ── Divider ── */
+    .card-divider {
+      height: 1px;
+      background: rgba(59,43,35,0.1);
+      margin: 0;
+    }
+
+    /* ── Description ── */
+    .project-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #333;
+      flex: 1;
+    }
+
+    /* ── Footer row: status + repo buttons ── */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.25rem;
+    }
+
+    .status {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+    .status-done     { background: rgba(38,78,54,0.13); color: #264e36; }
+    .status-wip      { background: rgba(180,120,0,0.13); color: #7a5000; }
+    .status-planned  { background: rgba(80,80,80,0.1);  color: #555; }
+
+    /* ── Icon-only repo buttons ── */
+    .repo-links {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--brown);
+      color: #fff;
+      text-decoration: none;
+      transition: background .15s, transform .15s;
+      flex-shrink: 0;
+    }
+    .repo-btn:hover { background: var(--brown-d); transform: translateY(-2px); }
+    .repo-btn svg   { width: 17px; height: 17px; fill: #fff; display: block; }
+
+    @media (max-width: 640px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="main_site.html" class="back-btn" aria-label="Powrót do strony głównej">← Strona główna</a>
+
+  <header>
+    <h1>Projekty</h1>
+    <h2>Wybrane projekty z moich repozytoriów</h2>
+  </header>
+
+  <main>
+    <div class="projects-grid">
+
+      <!-- Projekt 1 -->
+      <div class="project-card">
+        <div class="card-header">
+          <h2 class="project-title">Optymalizacja wydajności<br>i efektywności operacyjnej systemu SIEM</h2>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">JSON</span>
+            <span class="tag">SIEM</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="project-desc">
+          Praca inżynierska — Optymalizacja systemów SIEM takich jak Wazuh i Security Onion pod kątem pracy na urządzenia o ograniczobach sprzętowych.
+        </p>
+        <div class="card-footer">
+          <span class="status status-done">Ukończony</span>
+          <div class="repo-links">
+            <a class="repo-btn" href="https://github.com/FiFulini/siem-optimization-wazuh-security-onion" target="_blank" rel="noopener noreferrer" title="GitHub">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.73-1.53-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.19a11.15 11.15 0 012.91-.39c.99.01 1.99.13 2.92.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.41.36.77 1.06.77 2.14 0 1.55-.01 2.8-.01 3.18 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projekt 2 -->
+      <div class="project-card">
+        <div class="card-header">
+          <h2 class="project-title">SOC Home Lab — Log Analyzer & Threat Hunter</h2>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">HTML</span>
+            <span class="tag">JSON</span>
+            <span class="tag">SIEM</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="project-desc">
+          Analiza logów zebranych przez Wazuh SIEM, zainstalowany na RPPI5 i zintegrowany z maszynami (Linux i Windows). Tworzenie wykresów i strony z aktywnymi filtrami do analizy zdarzeń.
+        </p>
+        <div class="card-footer">
+          <span class="status status-done">W trakcie</span>
+          <div class="repo-links">
+            <a class="repo-btn" href="https://github.com/FiFulini/SOC-Home-Lab-Log-Analyzer-Threat-Hunter" target="_blank" rel="noopener noreferrer" title="GitHub">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.73-1.53-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.19a11.15 11.15 0 012.91-.39c.99.01 1.99.13 2.92.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.41.36.77 1.06.77 2.14 0 1.55-.01 2.8-.01 3.18 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projekt 3 -->
+      <div class="project-card">
+        <div class="card-header">
+          <h2 class="project-title">PyFIM — File Integrity Monitor</h2>
+          <div class="tags">
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="project-desc">
+          A lightweight, zero-dependency Python tool that monitors a directory for unauthorized file changes — the same core mechanism used by enterprise SIEM agents like Wazuh FIM.
+        </p>
+        <div class="card-footer">
+          <span class="status status-wip">W trakcie</span>
+          <div class="repo-links">
+            <a class="repo-btn" href="https://github.com/FiFulini/File-security-FIM" target="_blank" rel="noopener noreferrer" title="GitHub">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.73-1.53-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.19a11.15 11.15 0 012.91-.39c.99.01 1.99.13 2.92.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.41.36.77 1.06.77 2.14 0 1.55-.01 2.8-.01 3.18 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+            <a class="repo-btn" href="https://gitlab.com/FiFulini/File-security-FIM" target="_blank" rel="noopener noreferrer" title="GitLab">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.955 13.587l-1.342-4.135-2.664-8.189a.455.455 0 00-.867 0L16.418 9.45H7.582L4.918 1.263a.455.455 0 00-.867 0L1.386 9.45.044 13.587a.924.924 0 00.331 1.023L12 23.054l11.625-8.443a.924.924 0 00.33-1.024"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projekt 4 -->
+      <div class="project-card">
+        <div class="card-header">
+          <h2 class="project-title">Osobista wizytówka</h2>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="project-desc">
+          Ta strona — osobista wizytówka i link tree zbudowana w czystym HTML/CSS.
+          Bez frameworków, bez zależności.
+        </p>
+        <div class="card-footer">
+          <span class="status status-wip">W trakcie</span>
+          <div class="repo-links">
+            <a class="repo-btn" href="https://github.com/FiFulini/Osobista_Wizytowka-LinkTree-" target="_blank" rel="noopener noreferrer" title="GitHub">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.73-1.53-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.19a11.15 11.15 0 012.91-.39c.99.01 1.99.13 2.92.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.41.36.77 1.06.77 2.14 0 1.55-.01 2.8-.01 3.18 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projekt 5 — planned -->
+      <div class="project-card">
+        <div class="card-header">
+          <h2 class="project-title">Praca magisterska</h2>
+          <div class="tags">
+            <span class="tag">Soon</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <p class="project-desc">
+          Projekt w planowaniu — opis pojawi się wkrótce.
+        </p>
+        <div class="card-footer">
+          <span class="status status-planned">Planowany</span>
+          <div class="repo-links">
+            <a class="repo-btn" href="https://github.com/FiFulini" target="_blank" rel="noopener noreferrer" title="GitHub">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.73-1.53-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.19a11.15 11.15 0 012.91-.39c.99.01 1.99.13 2.92.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.41.36.77 1.06.77 2.14 0 1.55-.01 2.8-.01 3.18 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-section footer-left">© 2026 Filip Niemczyk — strona mojego autorstwa</div>
+    <div class="footer-section footer-center">
+      <a href="mailto:filip@niemczyk.email">filip@niemczyk.email</a> · Last updated: 2026-03-18
+    </div>
+    <div class="footer-section footer-right">
+      <a href="FiFulini_CV.pdf" target="_blank" rel="noopener">Pobierz CV</a>
+        <a class="icon-link" href="https://gitlab.com/FiFulini" target="_blank" rel="noopener noreferrer" aria-label="GitLab" title="GitLab">
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.955 13.587l-1.342-4.135-2.664-8.189a.455.455 0 00-.867 0L16.418 9.45H7.582L4.918 1.263a.455.455 0 00-.867 0L1.386 9.45.044 13.587a.924.924 0 00.331 1.023L12 23.054l11.625-8.443a.924.924 0 00.33-1.024"/></svg>
+      </a>
+      <a class="icon-link" href="https://github.com/FiFulini" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.73-1.53-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.19a11.15 11.15 0 012.91-.39c.99.01 1.99.13 2.92.39 2.22-1.5 3.2-1.19 3.2-1.19.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.69.41.36.77 1.06.77 2.14 0 1.55-.01 2.8-.01 3.18 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+      </a>
+      <a class="icon-link" href="https://pl.linkedin.com/in/filip-niemczyk-858864363" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+        <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1 4.98 2.12 4.98 3.5zM.24 8.5h4.52V24H.24zM8.5 8.5h4.33v2.07h.06c.6-1.14 2.06-2.34 4.24-2.34 4.54 0 5.38 2.99 5.38 6.88V24H18.2v-7.53c0-1.8-.03-4.11-2.5-4.11-2.5 0-2.88 1.95-2.88 3.98V24H8.5z"/></svg>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
